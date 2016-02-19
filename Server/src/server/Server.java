@@ -66,7 +66,7 @@ public class Server {
                     System.out.println("Client [" + clientAddr.getHostAddress() + "]: > " + receivedText);
                     String ucaseText = receivedText.toUpperCase();
                     out.println(ucaseText);
-                    System.out.println("Server [" + InetAddress.getLocalHost().getHostAddress() + ucaseText);
+                    System.out.println("Server [" + InetAddress.getLocalHost().getHostAddress() + "]: > " + ucaseText);
                 }
 
                 connectSocket.close();
