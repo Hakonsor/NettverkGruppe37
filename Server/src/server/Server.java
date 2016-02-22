@@ -26,7 +26,7 @@ public class Server extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Server.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ServerFXML.fxml"));
 
         Scene scene = new Scene(root, 800, 600);
 
@@ -38,8 +38,9 @@ public class Server extends Application {
     public static void main(String[] args) {
         portNumber = 1337;
         Server s = new Server();
-        s.startServer(1337);
         launch(args);
+        s.startServer(1337);
+        
     }
 
     private static int portNumber;

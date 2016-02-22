@@ -6,9 +6,37 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Slider?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerFXMLController">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" id="GridPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass"  fx:controller="server.ServerFXMLController">
+    
+    <VBox prefWidth="800" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="0">
+        <Slider fx:id="Slider_Red" maxWidth="100"   min="1" max="240" ></Slider>
+        <Slider fx:id="Slider_Green" maxWidth="100"   min="1" max="240"></Slider>
+        <Slider fx:id="Slider_Yellow" maxWidth="100"   min="1" max="240"></Slider>
+    </VBox>
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="0" GridPane.rowSpan="0">
+        <Canvas fx:id="TrafickLight" width="200" height="600" visible="true" />
+    </HBox>
+    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="0" GridPane.rowSpan="0" spacing="20">
+        <fx:define>
+            <ToggleGroup fx:id="Traifflight_Radiobuttons"/>
+        </fx:define>
+        <children>
+            <RadioButton text="Off" toggleGroup="$Traifflight_Radiobuttons"/>
+            <RadioButton text="Green" toggleGroup="$Traifflight_Radiobuttons"/>
+            <RadioButton text="Yellow" toggleGroup="$Traifflight_Radiobuttons"/>
+            <RadioButton text="Red" toggleGroup="$Traifflight_Radiobuttons"/>
+          
+        </children>          
+    </VBox>
+
+    
     <stylesheets>
         <URL value="@serverfxml.css"/>
     </stylesheets>
-</AnchorPane>
+</GridPane>
