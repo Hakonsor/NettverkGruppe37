@@ -32,7 +32,7 @@ public class Client {
                 System.exit(1);
             }
         }
-        System.out.print("Hostname: " + hostName + "\n Port number: " + portNumber);
+        System.out.print("Hostname: " + hostName + "\nPort number: " + portNumber + "\n");
 
         try (
                 Socket trafficClientSocket = new Socket(hostName, portNumber);
@@ -51,7 +51,6 @@ public class Client {
                 System.out.println("Server [" + hostName + "]: > " + receivedText);
                 System.out.print("Client [" + InetAddress.getLocalHost().getHostAddress() + "]: > ");
             }
-
         } catch (UnknownHostException e) {
             System.err.println("Unknown host " + hostName);
             System.exit(1);
@@ -61,5 +60,5 @@ public class Client {
         }
 
     }
-    
+
 }
