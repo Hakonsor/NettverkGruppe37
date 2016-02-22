@@ -35,11 +35,11 @@ public class Client {
         System.out.print("Hostname: " + hostName + "\n Port number: " + portNumber);
 
         try (
-                Socket trafficLightSocket = new Socket(hostName, portNumber);
+                Socket trafficClientSocket = new Socket(hostName, portNumber);
 
-                PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
+                PrintWriter out = new PrintWriter(trafficClientSocket.getOutputStream(), true);
 
-                BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+                BufferedReader in = new BufferedReader(new InputStreamReader(trafficClientSocket.getInputStream()));
 
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         ) {
