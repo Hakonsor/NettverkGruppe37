@@ -13,17 +13,12 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-/**
- *
- * @author hakon
- */
 public class Client {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         String hostName = "127.0.0.1"; // Default host, localhost
         int portNumber = 27182; // Default port
         if (args.length > 0) {
@@ -40,7 +35,7 @@ public class Client {
         System.out.print("Hostname: " + hostName + "\n Port number: " + portNumber);
 
         try (
-                Socket echoSocket = new Socket(hostName, portNumber);
+                Socket trafficLightSocket = new Socket(hostName, portNumber);
 
                 PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
 
