@@ -12,17 +12,11 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Slider?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" id="GridPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass"  fx:controller="server.ServerFXMLController">
-    
-    <VBox prefWidth="800" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="0">
-        <Slider fx:id="Slider_Red" maxWidth="100"   min="1" max="240" ></Slider>
-        <Slider fx:id="Slider_Green" maxWidth="100"   min="1" max="240"></Slider>
-        <Slider fx:id="Slider_Yellow" maxWidth="100"   min="1" max="240"></Slider>
-    </VBox>
-    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="0" GridPane.rowSpan="0">
-        <Canvas fx:id="TrafickLight" width="200" height="600" visible="true" />
-    </HBox>
-    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="0" GridPane.rowSpan="0" spacing="20">
+<GridPane  xmlns:fx="http://javafx.com/fxml/1" id="GridPane" vgap="8" hgap="10"    prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass"  fx:controller="server.ServerFXMLController">
+    <padding>
+         <Insets bottom="10.0" left="10.0" right ="10.0" top="10.0"/>
+     </padding>
+     <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"  >
         <fx:define>
             <ToggleGroup fx:id="Traifflight_Radiobuttons"/>
         </fx:define>
@@ -34,6 +28,15 @@
           
         </children>          
     </VBox>
+    <VBox prefWidth="800" GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="20"  >
+        <Slider fx:id="Slider_Red" maxWidth="100"   min="1" max="240" ></Slider>
+        <Slider fx:id="Slider_Green" maxWidth="100"   min="1" max="240"></Slider>
+        <Slider fx:id="Slider_Yellow" maxWidth="100"   min="1" max="240"></Slider>
+    </VBox>
+    <HBox GridPane.columnIndex="2" GridPane.rowIndex="0">
+        <Canvas fx:id="TrafickLight" width="200" height="600" visible="true" />
+    </HBox>
+    
 
     
     <stylesheets>
