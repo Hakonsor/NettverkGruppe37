@@ -8,7 +8,9 @@ import java.io.*;
 import java.net.*;
  
 public class Client {
-    public static void main(String[] args) throws IOException {
+
+    private ClientFXMLController controller;
+   
          
         /*
         if (args.length != 2) {
@@ -17,7 +19,9 @@ public class Client {
             System.exit(1);
         }
         */
-        String hostName = "localhost";
+        public void startClient(int port, String adress){
+            
+        String hostName = adress;
         int portNumber = 1337; //Integer.parseInt(args[1]);
  
         try (
@@ -28,9 +32,11 @@ public class Client {
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String inputServer;
             String outputClient;
+            
 
             while ((inputServer = in.readLine()) != null) {
                 System.out.println("Server: " + inputServer);
+                controller.update(inputServer);
                 if (inputServer.equals("Bye."))
                     break;
                  
@@ -48,5 +54,14 @@ public class Client {
                 hostName);
             System.exit(1);
         }
+    }
+
+
+    void setController(ClientFXMLController controller) {
+        this.controller = controller;
+    }
+
+    void Disconnect() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
