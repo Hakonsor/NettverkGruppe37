@@ -22,28 +22,11 @@ import javafx.stage.Stage;
  *
  * @author hakon
  */
-public class Server extends Application {
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ServerFXML.fxml"));
-
-        Scene scene = new Scene(root, 800, 600);
-
-        primaryStage.setTitle("Server");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        portNumber = 1337;
-        Server s = new Server();
-        launch(args);
-        s.startServer(1337);
-        
-    }
+public class Server {
 
     private static int portNumber;
+    public Protocol p = new Protocol(); 
+    
 
     public void startServer(int port) {
         portNumber = port;
@@ -55,7 +38,6 @@ public class Server extends Application {
             String input, output;
 
             // Initiate conversation with client
-            Protocol p = new Protocol();
             output = p.getState();
             out.println(output);
 

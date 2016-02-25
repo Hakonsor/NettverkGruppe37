@@ -1,45 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
-<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.ColorPicker?>
-<?import javafx.scene.control.Slider?>
 
-<GridPane  xmlns:fx="http://javafx.com/fxml/1" id="GridPane" vgap="8" hgap="10"    prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass"  fx:controller="server.ServerFXMLController">
-    <padding>
-         <Insets bottom="10.0" left="10.0" right ="10.0" top="10.0"/>
-     </padding>
-     <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"  >
-        <fx:define>
-            <ToggleGroup fx:id="Traifflight_Radiobuttons"/>
-        </fx:define>
-        <children>
-            <RadioButton text="Off" toggleGroup="$Traifflight_Radiobuttons"/>
-            <RadioButton text="Green" toggleGroup="$Traifflight_Radiobuttons"/>
-            <RadioButton text="Yellow" toggleGroup="$Traifflight_Radiobuttons"/>
-            <RadioButton text="Red" toggleGroup="$Traifflight_Radiobuttons"/>
-          
-        </children>          
-    </VBox>
-    <VBox prefWidth="800" GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="20"  >
-        <Slider fx:id="Slider_Red" maxWidth="100"   min="1" max="240" ></Slider>
-        <Slider fx:id="Slider_Green" maxWidth="100"   min="1" max="240"></Slider>
-        <Slider fx:id="Slider_Yellow" maxWidth="100"   min="1" max="240"></Slider>
-    </VBox>
-    <HBox GridPane.columnIndex="2" GridPane.rowIndex="0">
-        <Canvas fx:id="TrafickLight" width="200" height="600" visible="true" />
-    </HBox>
-    
-
-    
-    <stylesheets>
-        <URL value="@serverfxml.css"/>
-    </stylesheets>
-</GridPane>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.ServerFXMLController">
+   <children>
+      <VBox alignment="CENTER_LEFT" layoutX="29.0" layoutY="15.0" prefHeight="179.0" prefWidth="100.0">
+         <children>
+            <RadioButton id="radiobuttonOff" fx:id="radiobuttonOff" mnemonicParsing="false" onAction="#onRadioButtonClicked" text="Off">
+               <toggleGroup>
+                  <ToggleGroup fx:id="radiobutton" />
+               </toggleGroup></RadioButton>
+            <RadioButton id="radiobuttonRed" fx:id="radiobuttonRed" mnemonicParsing="false" onAction="#onRadioButtonClicked" text="Red" toggleGroup="$radiobutton" />
+            <RadioButton id="radiobuttonYellow" fx:id="radiobuttonYellow" mnemonicParsing="false" onAction="#onRadioButtonClicked" text="Yellow" toggleGroup="$radiobutton" />
+            <RadioButton id="radiobuttonGreen" fx:id="radiobuttonGreen" mnemonicParsing="false" onAction="#onRadioButtonClicked" text="Green" toggleGroup="$radiobutton" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" layoutX="129.0" layoutY="4.0" prefHeight="200.0" prefWidth="133.0">
+         <children>
+            <Label text="Red Timer" />
+            <Slider id="Slider_Red" fx:id="Slider_Red" />
+            <Label text="Yellow timer" />
+            <Slider id="Slider_Yellow" fx:id="Slider_Yellow" />
+            <Label text="Green timer" />
+            <Slider id="Slider_Green" fx:id="Slider_Green" prefHeight="14.0" prefWidth="95.0" />
+         </children>
+      </VBox>
+      <TextArea id="textAreaServer" fx:id="textAreaServer" layoutX="29.0" layoutY="172.0" prefHeight="200.0" prefWidth="244.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="225.0" layoutX="325.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="78.0" />
+      <Circle id="lightRed" fx:id="lightRed" fill="#797979" layoutX="364.0" layoutY="86.0" radius="33.0" stroke="#828376" strokeType="INSIDE" />
+      <Circle id="lightYellow" fx:id="lightYellow" fill="#797979" layoutX="364.0" layoutY="155.0" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="lightGreen" fx:id="lightGreen" fill="#797979" layoutX="364.0" layoutY="226.0" radius="32.0" stroke="BLACK" strokeType="INSIDE" />
+      <ListView id="listviewClients" fx:id="listviewClients" layoutX="422.0" layoutY="68.0" prefHeight="310.0" prefWidth="153.0" />
+      <Label layoutX="429.0" layoutY="45.0" text="Clients" />
+   </children>
+</AnchorPane>

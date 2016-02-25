@@ -7,7 +7,12 @@ package server;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * FXML Controller class
@@ -16,6 +21,36 @@ import javafx.fxml.Initializable;
  */
 public class ServerFXMLController implements Initializable {
 
+    @FXML 
+    private RadioButton radiobuttonOff;
+    @FXML 
+    private RadioButton radiobuttonRed;
+    @FXML 
+    private RadioButton radiobuttonYellow;
+    @FXML 
+    private RadioButton radiobuttonGreen;
+    @FXML 
+    private Slider Slider_Red;
+    @FXML 
+    private Slider Slider_Yellow;
+    @FXML 
+    private Slider Slider_Green;
+    @FXML 
+    private Circle lightRed;
+    @FXML 
+    private Circle lightYellow;
+    @FXML 
+    private Circle lightGreen;
+    @FXML 
+    private TextArea textAreaServer;
+    @FXML 
+    private ListView listviewClients;
+    @FXML
+    private ToggleGroup radiobutton;
+    
+    
+    private Server server; 
+    
     /**
      * Initializes the controller class.
      */
@@ -23,5 +58,37 @@ public class ServerFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void onRadioButtonClicked(ActionEvent event) {
+        if(radiobuttonOff.isArmed()){
+            lightRed.setFill( Color.web("#797979"));
+            lightYellow.setFill( Color.web("#797979"));
+            lightGreen.setFill( Color.web("#797979"));
+
+        }else if(radiobuttonRed.isArmed()){
+            lightRed.setFill(Color.RED);
+            lightYellow.setFill( Color.web("#797979"));
+            lightGreen.setFill( Color.web("#797979"));
+
+        }else if(radiobuttonYellow.isArmed()){
+            lightRed.setFill( Color.web("#797979"));
+            lightYellow.setFill(Color.YELLOW);
+            lightGreen.setFill( Color.web("#797979"));
+
+        }else if(radiobuttonGreen.isArmed()){
+            lightRed.setFill( Color.web("#797979"));
+            lightYellow.setFill( Color.web("#797979"));
+            lightGreen.setFill(Color.GREEN);
+        }
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
+
+
+
+
     
 }
