@@ -39,7 +39,7 @@ public class Main extends Application {
             
             Scene scene = new Scene(pane);
             
-            primaryStage.setTitle("Server");
+            primaryStage.setTitle("Client");
             primaryStage.setScene(scene);
             primaryStage.show();
             
