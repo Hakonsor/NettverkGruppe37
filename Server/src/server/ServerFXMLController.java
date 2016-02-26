@@ -21,67 +21,67 @@ import javafx.scene.shape.Circle;
  */
 public class ServerFXMLController implements Initializable {
 
-    @FXML 
+    @FXML
     private RadioButton radiobuttonOff;
-    @FXML 
+    @FXML
     private RadioButton radiobuttonRed;
-    @FXML 
+    @FXML
     private RadioButton radiobuttonYellow;
-    @FXML 
+    @FXML
     private RadioButton radiobuttonGreen;
-    @FXML 
+    @FXML
     private Slider Slider_Red;
-    @FXML 
+    @FXML
     private Slider Slider_Yellow;
-    @FXML 
+    @FXML
     private Slider Slider_Green;
-    @FXML 
+    @FXML
     private Circle lightRed;
-    @FXML 
+    @FXML
     private Circle lightYellow;
-    @FXML 
+    @FXML
     private Circle lightGreen;
-    @FXML 
+    @FXML
     private TextArea textAreaServer;
-    @FXML 
+    @FXML
     private ListView listviewClients;
     @FXML
     private ToggleGroup radiobutton;
-    
-    
-    private MultiServer server; 
-    
+
+    private MultiServer server;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        timerSlider();
+    }
 
     @FXML
     private void onRadioButtonClicked(ActionEvent event) {
-        if(radiobuttonOff.isArmed()){
-            lightRed.setFill( Color.web("#797979"));
-            lightYellow.setFill( Color.web("#797979"));
-            lightGreen.setFill( Color.web("#797979"));
-           Protocol.setBlinkingYellow();
+        if (radiobuttonOff.isArmed()) {
+            lightRed.setFill(Color.web("#797979"));
+            lightYellow.setFill(Color.web("#797979"));
+            lightGreen.setFill(Color.web("#797979"));
+            Protocol.setBlinkingYellow();
 
-        }else if(radiobuttonRed.isArmed()){
+        } else if (radiobuttonRed.isArmed()) {
             lightRed.setFill(Color.RED);
-            lightYellow.setFill( Color.web("#797979"));
-            lightGreen.setFill( Color.web("#797979"));
+            lightYellow.setFill(Color.web("#797979"));
+            lightGreen.setFill(Color.web("#797979"));
             Protocol.setRed();
 
-        }else if(radiobuttonYellow.isArmed()){
-            lightRed.setFill( Color.web("#797979"));
+        } else if (radiobuttonYellow.isArmed()) {
+            lightRed.setFill(Color.web("#797979"));
             lightYellow.setFill(Color.YELLOW);
-            lightGreen.setFill( Color.web("#797979"));
+            lightGreen.setFill(Color.web("#797979"));
             Protocol.setYellow();
 
-        }else if(radiobuttonGreen.isArmed()){
-            lightRed.setFill( Color.web("#797979"));
-            lightYellow.setFill( Color.web("#797979"));
+        } else if (radiobuttonGreen.isArmed()) {
+            lightRed.setFill(Color.web("#797979"));
+            lightYellow.setFill(Color.web("#797979"));
             lightGreen.setFill(Color.GREEN);
             Protocol.setGreen();
         }
@@ -91,8 +91,42 @@ public class ServerFXMLController implements Initializable {
         this.server = server;
     }
 
+    public void timerSlider() {
 
+        new Thread() {
+            public void run() {
+                Slider currentSlider = Slider_Red;
+                long millis = System.currentTimeMillis();
 
+                while (true) {
+                    if ((long) currentSlider.getValue() * 100 < System.currentTimeMillis() - millis) {
+                        millis = System.currentTimeMillis();
+                        if (currentSlider == Slider_Red) {
+                            currentSlider = Slider_Yellow;
+                            lightRed.setFill(Color.web("#797979"));
+                            lightYellow.setFill(Color.YELLOW);
+                            lightGreen.setFill(Color.web("#797979"));
+                            Protocol.setYellow();
+                        } else if (currentSlider == Slider_Yellow) {
+                            lightRed.setFill(Color.web("#797979"));
+                            lightYellow.setFill(Color.web("#797979"));
+                            lightGreen.setFill(Color.GREEN);
+                            currentSlider = Slider_Green;
+                            Protocol.setGreen();
+                        } else if (currentSlider == Slider_Green) {
+                            currentSlider = Slider_Red;
+                            lightRed.setFill(Color.RED);
+                            lightYellow.setFill(Color.web("#797979"));
+                            lightGreen.setFill(Color.web("#797979"));
+                            Protocol.setRed();
+                        }
 
-    
+                    }
+                }
+            }
+
+        }.start();
+
+    }
+
 }

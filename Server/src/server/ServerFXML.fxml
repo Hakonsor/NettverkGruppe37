@@ -23,11 +23,11 @@
       <VBox alignment="CENTER_LEFT" layoutX="129.0" layoutY="4.0" prefHeight="200.0" prefWidth="133.0">
          <children>
             <Label text="Red Timer" />
-            <Slider id="Slider_Red" fx:id="Slider_Red" />
+            <Slider id="Slider_Red" fx:id="Slider_Red" min="5.0" value="15.0" />
             <Label text="Yellow timer" />
-            <Slider id="Slider_Yellow" fx:id="Slider_Yellow" />
+            <Slider id="Slider_Yellow" fx:id="Slider_Yellow" min="5.0" value="15.0" />
             <Label text="Green timer" />
-            <Slider id="Slider_Green" fx:id="Slider_Green" prefHeight="14.0" prefWidth="95.0" />
+            <Slider id="Slider_Green" fx:id="Slider_Green" min="5.0" prefHeight="14.0" prefWidth="95.0" value="15.0" />
          </children>
       </VBox>
       <TextArea id="textAreaServer" fx:id="textAreaServer" layoutX="29.0" layoutY="172.0" prefHeight="200.0" prefWidth="244.0" />

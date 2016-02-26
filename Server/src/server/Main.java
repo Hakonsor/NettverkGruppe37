@@ -47,6 +47,7 @@ public class Main extends Application {
             //Server s = new Server();
             MultiServer s = new MultiServer(1337);
             controller.setServer(s);
+            
             new Thread(){
                  public void run(){
                      try {
