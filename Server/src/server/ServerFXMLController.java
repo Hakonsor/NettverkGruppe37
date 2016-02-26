@@ -62,27 +62,19 @@ public class ServerFXMLController implements Initializable {
     @FXML
     private void onRadioButtonClicked(ActionEvent event) {
         if (radiobuttonOff.isArmed()) {
-            lightRed.setFill(Color.web("#797979"));
-            lightYellow.setFill(Color.web("#797979"));
-            lightGreen.setFill(Color.web("#797979"));
+            changeToOff();
             Protocol.setBlinkingYellow();
 
         } else if (radiobuttonRed.isArmed()) {
-            lightRed.setFill(Color.RED);
-            lightYellow.setFill(Color.web("#797979"));
-            lightGreen.setFill(Color.web("#797979"));
+            changeToRed();
             Protocol.setRed();
 
         } else if (radiobuttonYellow.isArmed()) {
-            lightRed.setFill(Color.web("#797979"));
-            lightYellow.setFill(Color.YELLOW);
-            lightGreen.setFill(Color.web("#797979"));
+            changeToYellow();
             Protocol.setYellow();
 
         } else if (radiobuttonGreen.isArmed()) {
-            lightRed.setFill(Color.web("#797979"));
-            lightYellow.setFill(Color.web("#797979"));
-            lightGreen.setFill(Color.GREEN);
+            changeToGreen();
             Protocol.setGreen();
         }
     }
@@ -91,34 +83,77 @@ public class ServerFXMLController implements Initializable {
         this.server = server;
     }
 
+    private void changeToRed() {
+        lightRed.setFill(Color.RED);
+        lightYellow.setFill(Color.web("#797979"));
+        lightGreen.setFill(Color.web("#797979"));
+    }
+
+    private void changeToYellow() {
+        lightRed.setFill(Color.web("#797979"));
+        lightYellow.setFill(Color.YELLOW);
+        lightGreen.setFill(Color.web("#797979"));
+    }
+
+    private void changeToGreen() {
+        lightRed.setFill(Color.web("#797979"));
+        lightYellow.setFill(Color.web("#797979"));
+        lightGreen.setFill(Color.GREEN);
+    }
+
+    private void changeToOff() {
+        lightRed.setFill(Color.web("#797979"));
+        lightYellow.setFill(Color.web("#797979"));
+        lightGreen.setFill(Color.web("#797979"));
+    }
+
     public void timerSlider() {
 
         new Thread() {
             public void run() {
                 Slider currentSlider = Slider_Red;
+                String prevState = Protocol.getState();
                 long millis = System.currentTimeMillis();
 
                 while (true) {
-                    if ((long) currentSlider.getValue() * 100 < System.currentTimeMillis() - millis) {
+                    if (prevState.equals(Protocol.getState())) {
+                        if ((long) currentSlider.getValue() * 100 < System.currentTimeMillis() - millis) {
+                            millis = System.currentTimeMillis();
+                            switch (Protocol.getState()) {
+                                case "RED":
+                                    currentSlider = Slider_Yellow;
+                                    changeToYellow();
+                                    Protocol.setYellow();
+                                    break;
+                                case "YELLOW":
+                                    changeToGreen();
+                                    currentSlider = Slider_Green;
+                                    Protocol.setGreen();
+                                    break;
+                                case "GREEN":
+                                    currentSlider = Slider_Red;
+                                    changeToRed();
+                                    Protocol.setRed();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    } else {
+                        prevState = Protocol.getState();
                         millis = System.currentTimeMillis();
-                        if (currentSlider == Slider_Red) {
-                            currentSlider = Slider_Yellow;
-                            lightRed.setFill(Color.web("#797979"));
-                            lightYellow.setFill(Color.YELLOW);
-                            lightGreen.setFill(Color.web("#797979"));
-                            Protocol.setYellow();
-                        } else if (currentSlider == Slider_Yellow) {
-                            lightRed.setFill(Color.web("#797979"));
-                            lightYellow.setFill(Color.web("#797979"));
-                            lightGreen.setFill(Color.GREEN);
-                            currentSlider = Slider_Green;
-                            Protocol.setGreen();
-                        } else if (currentSlider == Slider_Green) {
-                            currentSlider = Slider_Red;
-                            lightRed.setFill(Color.RED);
-                            lightYellow.setFill(Color.web("#797979"));
-                            lightGreen.setFill(Color.web("#797979"));
-                            Protocol.setRed();
+                        switch (Protocol.getState()) {
+                            case "RED":
+                                currentSlider = Slider_Red;
+                                break;
+                            case "YELLOW":
+                                currentSlider = Slider_Yellow;
+                                break;
+                            case "GREEN":
+                                currentSlider = Slider_Green;
+                                break;
+                            default:
+                                break;
                         }
 
                     }

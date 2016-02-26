@@ -13,7 +13,7 @@ public class MultiServer {
      static int portNumber;
     public MultiServer(String[] args) {
         if (args.length != 1) {
-            System.err.println("Usage: java KKMultiServer <port number>");
+            System.err.println("Usage: java MultiServer <port number>");
             System.exit(1);
         }
          portNumber = Integer.parseInt(args[0]);
