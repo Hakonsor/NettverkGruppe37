@@ -80,7 +80,8 @@ public class ServerFXMLController implements Initializable {
     }
 
     public void setServer(MultiServer server) {
-        this.server = server;
+        this.server = server;// trenger ikke dette lengere
+        
     }
 
     private void changeToRed() {
