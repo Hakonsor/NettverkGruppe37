@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,84 +6,53 @@
  */
 package server;
 
-import java.net.*;
-import java.io.*;
-import java.util.HashSet;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  *
  * @author hakon
  */
 public class Server {
-    static HashSet<InetAddress> inetAddresses = new HashSet<>();
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        int portNumber = 27182; // Default port
+    private static int portNumber;
+    public Protocol p = new Protocol(); 
+    
 
-        /**
-         * Port number can be defined in the first commandline argument
-         */
-        if (args.length > 0) {
-            if (args.length == 1) {
-                portNumber = Integer.parseInt(args[0]);
-            } else {
-                System.err.println("Usage: java Server [<port number>]");
-                System.exit(1);
-            }
-        }
+    public void startServer(int port) {
+        portNumber = port;
+        try (
+                ServerSocket serverSocket = new ServerSocket(portNumber);
+                Socket clientSocket = serverSocket.accept();
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
+            String input, output;
 
-        System.out.println("Server is using port number " + portNumber + "\nListening for connection attempts:");
+            // Initiate conversation with client
+            output = p.getState();
+            out.println(output);
 
-        try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
-            String receivedText;
-            // Continually listening for clients
-            while (true) {
-                ClientServer clientserver = new ClientServer(serverSocket.accept());
-                clientserver.start();
-                System.out.println("Client with IP " + clientserver.clientAddr.toString() + " connected.");
+            while ((input = in.readLine()) != null) {
+                
+                output = p.getState();
+                out.println(output);
+                if (output.equals("Disconnect.")) {
+                    break;
+                }
             }
         } catch (IOException e) {
-            System.out.println("Exception occurred when trying to listen on port " + portNumber + " or listening for a connection");
+            System.out.println("Feil ved portnummer: " + portNumber);
             System.out.println(e.getMessage());
-        }
-    }
-
-    private static class ClientServer extends Thread {
-        Socket connectSocket;
-        InetAddress clientAddr;
-
-        public ClientServer(Socket connectSocket) throws IOException {
-            this.connectSocket = connectSocket;
-            clientAddr = connectSocket.getInetAddress();
-            if (!inetAddresses.add(clientAddr)) {
-                connectSocket.close();
-            }
-        }
-
-        public void run() {
-            // This if-test allows a connection if the current ip is not in the HashSet of addresses
-                try (PrintWriter out = new PrintWriter(connectSocket.getOutputStream(), true);
-                     BufferedReader in = new BufferedReader(new InputStreamReader(connectSocket.getInputStream()));
-                ) {
-                    String receivedText;
-                    while (((receivedText = in.readLine()) != null)) {
-                        System.out.println("Client [" + clientAddr.getHostAddress() + "]: > " + receivedText);
-                        String ucaseText = receivedText.toUpperCase();
-                        out.println(ucaseText);
-                        System.out.println("Server [" + InetAddress.getLocalHost().getHostAddress() + "]: > " + ucaseText);
-                    }
-                    inetAddresses.remove(clientAddr);
-                    out.println("Disconnected.");
-                    System.out.println("Client with IP " + clientAddr.toString() + " disconnected.");
-                    connectSocket.close();
-                } catch (IOException e) {
-                    System.out.println("Exception occurred when trying to communicate with the client " + clientAddr.getHostAddress());
-                    System.out.println(e.getMessage());
-                }
         }
     }
 }
