@@ -42,6 +42,7 @@ public class Server {
             out.println(output);
 
             while ((input = in.readLine()) != null) {
+                
                 output = p.getState();
                 out.println(output);
                 if (output.equals("Disconnect.")) {

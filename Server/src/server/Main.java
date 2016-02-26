@@ -44,13 +44,17 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
             
-            Server s = new Server();
+            //Server s = new Server();
+            MultiServer s = new MultiServer(1337);
             controller.setServer(s);
             new Thread(){
                  public void run(){
-                
-                  s.startServer(1337);
-             
+                     try {
+                         s.startMultiServer();
+                         //      s.startServer(1337);
+                     } catch (IOException ex) {
+                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                     }
                  }  
             }.start();
           

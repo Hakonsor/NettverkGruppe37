@@ -49,7 +49,7 @@ public class ServerFXMLController implements Initializable {
     private ToggleGroup radiobutton;
     
     
-    private Server server; 
+    private MultiServer server; 
     
     /**
      * Initializes the controller class.
@@ -65,25 +65,29 @@ public class ServerFXMLController implements Initializable {
             lightRed.setFill( Color.web("#797979"));
             lightYellow.setFill( Color.web("#797979"));
             lightGreen.setFill( Color.web("#797979"));
+           Protocol.setBlinkingYellow();
 
         }else if(radiobuttonRed.isArmed()){
             lightRed.setFill(Color.RED);
             lightYellow.setFill( Color.web("#797979"));
             lightGreen.setFill( Color.web("#797979"));
+            Protocol.setRed();
 
         }else if(radiobuttonYellow.isArmed()){
             lightRed.setFill( Color.web("#797979"));
             lightYellow.setFill(Color.YELLOW);
             lightGreen.setFill( Color.web("#797979"));
+            Protocol.setYellow();
 
         }else if(radiobuttonGreen.isArmed()){
             lightRed.setFill( Color.web("#797979"));
             lightYellow.setFill( Color.web("#797979"));
             lightGreen.setFill(Color.GREEN);
+            Protocol.setGreen();
         }
     }
 
-    public void setServer(Server server) {
+    public void setServer(MultiServer server) {
         this.server = server;
     }
 

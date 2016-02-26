@@ -19,10 +19,10 @@ public class Protocol {
     private static final int YELLOW = 2;
     private static final int RED = 3;
 
-    private int state = BLINKING_YELLOW;
+    private static int state = BLINKING_YELLOW;
 
  
-    public String getState() {
+    public static String getState() {
         String theOutput = null;
  
         switch (state) {
@@ -44,16 +44,16 @@ public class Protocol {
         }
         return theOutput;
     }
-    public void setGreen(){
+    public static void setGreen(){
         state = GREEN;
     }
-    public void setRed(){
+    public static void setRed(){
         state = RED;
     }
-    public void setYellow(){
+    public static void setYellow(){
         state = YELLOW;
     }
-    public void setBlinkingYellow(){
+    public static void setBlinkingYellow(){
         state = BLINKING_YELLOW;
     }
 }
