@@ -35,10 +35,7 @@ public class MultiServerThread extends Thread {
             String lastState = outputLine;
 
             while (true) {
-                    System.out.println(Protocol.getState());
-                    System.out.println(lastState);
                 if (!Protocol.getState().equals(lastState)) {
-                    System.out.println("Noob!");
                     lastState = Protocol.getState();
                     outputLine = Protocol.getState();
                     out.println(outputLine);
