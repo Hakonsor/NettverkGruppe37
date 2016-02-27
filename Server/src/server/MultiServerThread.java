@@ -35,6 +35,13 @@ public class MultiServerThread extends Thread {
             String lastState = outputLine;
 
             while (true) {
+                //----------------------
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MultiServerThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //----------------------Det må være et delay her, kan erstattes med System.print.out eller noe annet svada
                 if (!Protocol.getState().equals(lastState)) {
                     lastState = Protocol.getState();
                     outputLine = Protocol.getState();
