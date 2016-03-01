@@ -11,6 +11,8 @@ package server;
  */
 import java.net.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MultiServerThread extends Thread {
 
@@ -35,7 +37,6 @@ public class MultiServerThread extends Thread {
             String lastState = outputLine;
 
             while (true) {
-<<<<<<< HEAD
                 //----------------------
                 try {
                     Thread.sleep(1);
@@ -43,10 +44,8 @@ public class MultiServerThread extends Thread {
                     Logger.getLogger(MultiServerThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 //----------------------Det må være et delay her, kan erstattes med System.print.out eller noe annet svada
-=======
                     System.out.println(Protocol.getState());
                     System.out.println(lastState);
->>>>>>> parent of 33fa605... rette bytte hvert millisec
                 if (!Protocol.getState().equals(lastState)) {
                     System.out.println("Noob!");
                     lastState = Protocol.getState();
