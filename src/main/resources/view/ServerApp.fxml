@@ -16,7 +16,7 @@
    <children>
       <AnchorPane prefHeight="300.0" prefWidth="750.0">
          <children>
-            <TabPane prefHeight="300.0" prefWidth="750.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="300.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                   <Tab text="Server Settings">
                     <content>
