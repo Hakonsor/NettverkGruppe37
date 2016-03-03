@@ -18,6 +18,7 @@ public class ServerApp extends Application {
         launch(args);
     }
 
+    private Server server;
     private Stage primaryStage;
     private AnchorPane serverLayout;
 
