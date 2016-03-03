@@ -22,12 +22,6 @@ public class ServerAppFXMLController {
     public TextArea serverInfoField;
     public ListView<String> clientList;
     public Button serverSettingsStartButton;
-    public TextInputControl serverInfoControl = new TextInputControl() {
-        @Override
-        public void appendText(String text) {
-            super.appendText(text);
-        }
-    }
 
     public void manualOffAction(ActionEvent actionEvent) {
     }
