@@ -17,7 +17,7 @@ public class Client implements Runnable {
     private boolean connected = false;
     private boolean connecting = true;
 
-    public static void setController(ClientAppFXMLController controller2) {
+    public void setController(ClientAppFXMLController controller2) {
         controller = controller2;
     }
 

@@ -44,7 +44,7 @@ public class ClientAppFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        client.setController(this);
+        
 
     }
 
@@ -70,6 +70,7 @@ public class ClientAppFXMLController implements Initializable {
     }
 
     public void update(String inputServer) {
+        System.out.println("bytte");
         switch (inputServer) {
             case "BLINKING_YELLOW":
                 lightRed.setFill(Color.web("#797979"));

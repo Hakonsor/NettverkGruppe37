@@ -42,6 +42,7 @@ public class ClientApp extends Application {
 
             ClientAppFXMLController clientAppFXMLController = loader.getController();
             clientAppFXMLController.setClient(client);
+            client.setController(clientAppFXMLController);
 
             Scene scene = new Scene(clientLayout);
             primaryStage.setScene(scene);
