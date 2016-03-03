@@ -1,8 +1,9 @@
 /**
  * Created by Simen on 28.02.2016.
  */
-
+package no.hioa.trafficlight;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,9 +22,10 @@ public class ServerApp extends Application {
     }
 
     private Server server;
-    private ObservableSet<InetAddress> inetAddresses; //
-    private Stage primaryStage;
     private AnchorPane serverLayout;
+    private ObservableList<InetAddress> listInetAddresses;
+    private ObservableSet<InetAddress> setInetAddresses; //
+    private Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
@@ -35,7 +37,7 @@ public class ServerApp extends Application {
     public void serverWindow() {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ServerApp.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/ServerApp.fxml"));
             serverLayout = loader.load();
 
             Scene scene = new Scene(serverLayout);
@@ -45,5 +47,10 @@ public class ServerApp extends Application {
         } catch (IOException e) {
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+
+    public ObservableList<InetAddress> getInetAddresses() {
+        listInetAddresses.addAll(setInetAddresses);
+        return listInetAddresses;
     }
 }

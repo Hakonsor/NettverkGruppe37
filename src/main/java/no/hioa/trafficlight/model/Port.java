@@ -1,4 +1,4 @@
-package model;
+package no.hioa.trafficlight.model;
 
 /**
  * Created by Simen on 28.02.2016.

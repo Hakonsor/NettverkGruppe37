@@ -1,16 +1,17 @@
-package view;
+package no.hioa.trafficlight.view;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import no.hioa.trafficlight.ServerApp;
 
 /**
  * Created by Simen on 28.02.2016.
  */
 public class ServerAppFXMLController {
-
+    public ServerApp serverApp;
     public Button manualOff;
     public Button manualRed;
     public TextField serverSettingsPortField;
@@ -56,5 +57,10 @@ public class ServerAppFXMLController {
     }
 
     public void serverSettingsStartButtonAction(ActionEvent actionEvent) {
+    }
+
+    public void setServerApp(ServerApp serverApp) {
+        this.serverApp = serverApp;
+        clientList.setItems(serverApp.getInetAddresses());
     }
 }

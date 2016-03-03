@@ -1,4 +1,5 @@
-import model.Port;
+package no.hioa.trafficlight;
+import no.hioa.trafficlight.model.Port;
 
 import java.net.InetAddress;
 
