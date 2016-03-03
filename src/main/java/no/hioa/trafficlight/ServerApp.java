@@ -14,7 +14,6 @@ import no.hioa.trafficlight.view.ServerAppFXMLController;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
