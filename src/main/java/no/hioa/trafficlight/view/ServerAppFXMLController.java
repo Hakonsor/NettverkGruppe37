@@ -1,10 +1,7 @@
 package no.hioa.trafficlight.view;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import no.hioa.trafficlight.ServerApp;
 
 /**
@@ -23,8 +20,14 @@ public class ServerAppFXMLController {
     public TextField instructionGreen;
     public Button instructionSend;
     public TextArea serverInfoField;
-    public ListView clientList;
+    public ListView<String> clientList;
     public Button serverSettingsStartButton;
+    public TextInputControl serverInfoControl = new TextInputControl() {
+        @Override
+        public void appendText(String text) {
+            super.appendText(text);
+        }
+    }
 
     public void manualOffAction(ActionEvent actionEvent) {
     }
