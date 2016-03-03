@@ -17,6 +17,17 @@
          <children>
             <TabPane prefHeight="300.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
+                  <Tab text="Server Settings">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="serverSettingsPortField" alignment="CENTER" layoutX="14.0" layoutY="46.0" onAction="#serverSettingsPortFieldAction" prefHeight="25.0" prefWidth="50.0" />
+                              <Label layoutX="14.0" layoutY="14.0" text="Port" />
+                              <Button fx:id="serverSettingsStartButton" layoutX="13.0" layoutY="78.0" mnemonicParsing="false" onAction="#serverSettingsStartButtonAction" prefHeight="25.0" prefWidth="69.0" text="Start" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
                 <Tab text="Manual">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

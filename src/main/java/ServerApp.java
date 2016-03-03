@@ -3,12 +3,14 @@
  */
 
 import javafx.application.Application;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +21,7 @@ public class ServerApp extends Application {
     }
 
     private Server server;
+    private ObservableSet<InetAddress> inetAddresses; //
     private Stage primaryStage;
     private AnchorPane serverLayout;
 
