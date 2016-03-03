@@ -8,19 +8,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import no.hioa.trafficlight.view.ClientAppFXMLController;
 
-/**
- * Created by Simen on 28.02.2016.
- */
+
 public class Client implements Runnable {
 
-    private ClientAppFXMLController controller;
+    private static ClientAppFXMLController controller;
     private int portNumber;
     private String hostName;
     private boolean connected = false;
     private boolean connecting = true;
 
-    public void setController(ClientAppFXMLController controller) {
-        this.controller = controller;
+    public static void setController(ClientAppFXMLController controller2) {
+        controller = controller2;
     }
 
 //Port port, InetAddress inetAddress
@@ -60,7 +58,7 @@ public class Client implements Runnable {
                 String inputServer;
                 String outputClient;
 
-                while ((inputServer = in.readLine()) != null && connected == true) {
+                while ((inputServer = in.readLine()) != null) {
                     System.out.println("Server: " + inputServer);
                     controller.update(inputServer);
                     if (inputServer.equals("Bye.")) {

@@ -6,10 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import no.hioa.trafficlight.Client;
 import no.hioa.trafficlight.ClientApp;
+import no.hioa.trafficlight.model.Port;
 
 /**
  * Created by Simen on 28.02.2016.
@@ -25,21 +28,46 @@ public class ClientAppFXMLController implements Initializable {
     private Circle lightYellow;
     @FXML
     private Circle lightGreen;
+    @FXML
+    private TextArea textarea;
+    @FXML
+    private TextField textfield_adress;
+    @FXML
+    private TextField textfield_port;
+    @FXML
+    private Button button_connect;
+    @FXML
+    private Button button_disconnect;
 
-    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        client.setController(this);
 
     }
-     @FXML
+
+    @FXML
     private void onButtonActionClicked(ActionEvent event) {
-        client.Disconnect();
+
+        if (event.getSource().equals(buttonOff)) {
+            client.Disconnect();
+        } else if (event.getSource().equals(button_connect)) {
+            try {
+                String ports = textfield_port.getText();
+                Port port = new Port(Integer.parseInt(ports));
+                client.setStartConnection(port.getPort(), textfield_adress.getText());
+            } catch (Exception ex) {
+
+                System.out.println("Uyldig port eller adresse");
+
+            }
+           
+        } else if (event.getSource().equals(button_disconnect)) {
+            client.Disconnect();
+        }
     }
-    
 
     public void update(String inputServer) {
         switch (inputServer) {
@@ -73,7 +101,7 @@ public class ClientAppFXMLController implements Initializable {
     }
 
     public void setClient(Client client) {
-       this.client = client;
+        this.client = client;
     }
 
 }

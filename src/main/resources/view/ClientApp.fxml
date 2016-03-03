@@ -28,14 +28,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea layoutY="221.0" prefHeight="150.0" prefWidth="300.0" />
+                        <TextArea fx:id="textarea" layoutY="221.0" prefHeight="150.0" prefWidth="300.0" />
                         <Label layoutX="14.0" layoutY="204.0" text="Client Info" />
-                        <TextField layoutX="22.0" layoutY="39.0" />
-                        <TextField layoutX="187.0" layoutY="39.0" prefHeight="25.0" prefWidth="60.0" />
+                        <TextField fx:id="textfield_adress" layoutX="22.0" layoutY="39.0" />
+                        <TextField fx:id="textfield_port" layoutX="187.0" layoutY="39.0" prefHeight="25.0" prefWidth="60.0" />
                         <Label layoutX="22.0" layoutY="14.0" text="Server Address" />
                         <Label layoutX="187.0" layoutY="14.0" text="Port" />
-                        <Button layoutX="26.0" layoutY="83.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Connect" />
-                        <Button layoutX="26.0" layoutY="115.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Disconnect" />
+                        <Button fx:id="button_connect" onAction="#onButtonActionClicked" layoutX="26.0" layoutY="83.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Connect" />
+                        <Button fx:id="button_disconnect" onAction="#onButtonActionClicked" layoutX="26.0" layoutY="115.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Disconnect" />
                      </children>
                   </AnchorPane>
             </content>
