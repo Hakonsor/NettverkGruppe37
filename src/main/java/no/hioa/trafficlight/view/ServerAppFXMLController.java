@@ -24,9 +24,11 @@ public class ServerAppFXMLController {
     public Button serverSettingsStartButton;
 
     public void manualOffAction(ActionEvent actionEvent) {
+        serverInfoField.appendText("Traffic lights are set to off.\n");
     }
 
     public void manualRedAction(ActionEvent actionEvent) {
+        serverInfoField.appendText("Traffic lights are set to red.\n");
     }
 
     public void manualYellowAction(ActionEvent actionEvent) {
