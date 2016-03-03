@@ -37,7 +37,7 @@ public class ServerApp extends Application {
         serverWindow();
     }
 
-    public void serverWindow() {
+    public void serverWindow()  {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/ServerApp.fxml"));

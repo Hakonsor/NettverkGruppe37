@@ -16,6 +16,7 @@ public class ServerAppFXMLController {
 
     public ServerApp serverApp;
     public Server server;
+    public Thread currentServer;
     public Button manualOff;
     public Button manualRed;
     public TextField serverSettingsPortField;
@@ -67,13 +68,24 @@ public class ServerAppFXMLController {
         String ports = serverSettingsPortField.getText();
         try {
             Port port = new Port(Integer.parseInt(ports));
-            server.setPort(port.getPort());
-            Server.startServer();
+            Server.setPort(port.getPort());
+            if(currentServer != null){
+                currentServer.interrupt();
+                currentServer.start();
+                System.out.println("server kjører");
+            }else{
+                currentServer = new Thread(server);
+                currentServer.start();
+                 System.out.println("server kjører");
+            }
+
         } catch (InvalidPortException ex) {
             serverSettingsPortField.clear();
+             System.out.println("server failer");
 
         } catch(Exception ex){
             serverSettingsPortField.clear();
+             System.out.println("server failer");
 
         }
         

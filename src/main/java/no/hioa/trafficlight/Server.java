@@ -25,9 +25,11 @@ import java.io.*;
 
 
 
-public class Server {
+public class Server implements Runnable{
 
-     static int portNumber;
+    static int portNumber = 1337;
+
+
     public Server(String[] args) {
         if (args.length != 1) {
             System.err.println("Usage: java MultiServer <port number>");
@@ -41,25 +43,27 @@ public class Server {
     }
     
     public Server(){
-         portNumber = 1337;
+       
     }
 
-    public static void startServer() throws IOException {
-        
-        boolean listening = true;
+    public static void setPort(int port) {
+        portNumber = port;
+    }
+    
+
+
+    @Override
+    public void run() {
+
 
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
-            while (listening) {
+            while (!Thread.interrupted()) {
                 new ServerThread(serverSocket.accept()).start();
             }
         } catch (IOException e) {
             System.err.println("Could not listen on port " + portNumber);
             System.exit(-1);
         }
-    }
-
-    public void setPort(int port) {
-        portNumber = port;
     }
 
 }
