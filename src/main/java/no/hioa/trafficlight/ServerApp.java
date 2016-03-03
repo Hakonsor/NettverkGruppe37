@@ -23,7 +23,7 @@ public class ServerApp extends Application {
         launch(args);
     }
 
-    private Server server;
+
     private AnchorPane serverLayout;
     private ObservableList<String> listInetAddresses = FXCollections.observableArrayList();
     private ObservableSet<String> setInetAddresses = FXCollections.observableSet(); //
@@ -42,9 +42,15 @@ public class ServerApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/ServerApp.fxml"));
             serverLayout = loader.load();
+            
+            Server server = new Server();
+            
 
             ServerAppFXMLController serverAppFXMLController = loader.getController();
-            serverAppFXMLController.setServerApp(this);
+            serverAppFXMLController.setServer(server);
+            
+            
+            
 
             Scene scene = new Scene(serverLayout);
             primaryStage.setScene(scene);
