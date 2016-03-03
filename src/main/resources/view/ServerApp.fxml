@@ -81,7 +81,7 @@
       </AnchorPane>
       <AnchorPane layoutY="300.0" prefHeight="200.0" prefWidth="375.0">
          <children>
-            <TextArea fx:id="serverInfoField" prefHeight="200.0" prefWidth="375.0" />
+            <TextArea fx:id="serverInfoField" editable="false" prefHeight="200.0" prefWidth="375.0" />
             <Label layoutX="14.0" layoutY="14.0" text="Server Info" />
             <ScrollBar layoutX="361.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="14.0" />
          </children>
