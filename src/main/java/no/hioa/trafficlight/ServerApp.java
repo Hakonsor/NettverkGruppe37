@@ -61,7 +61,6 @@ public class ServerApp extends Application {
         setInetAddresses.add("Foo");
         setInetAddresses.add("Moo");
         setInetAddresses.add("Bar");
-        System.out.println(setInetAddresses.toString());
         listInetAddresses.addAll(setInetAddresses);
         return listInetAddresses;
     }
