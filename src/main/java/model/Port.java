@@ -1,7 +1,5 @@
 package model;
 
-import java.io.IOException;
-
 /**
  * Created by Simen on 28.02.2016.
  */

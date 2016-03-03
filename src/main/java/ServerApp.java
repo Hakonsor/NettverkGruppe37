@@ -4,6 +4,7 @@
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -18,10 +19,12 @@ public class ServerApp extends Application {
     }
 
     private Stage primaryStage;
+    private AnchorPane serverLayout;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("Traffic Light Server");
         serverWindow();
     }
 
@@ -29,7 +32,11 @@ public class ServerApp extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ServerApp.fxml"));
-            AnchorPane pane = loader.load();
+            serverLayout = loader.load();
+
+            Scene scene = new Scene(serverLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
         } catch (IOException e) {
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, e);
