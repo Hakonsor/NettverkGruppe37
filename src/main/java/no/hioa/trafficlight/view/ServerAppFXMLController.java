@@ -72,11 +72,11 @@ public class ServerAppFXMLController {
             if(currentServer != null){
                 currentServer.interrupt();
                 currentServer.start();
-                System.out.println("server kjører");
+                System.out.println("server kjï¿½rer");
             }else{
                 currentServer = new Thread(server);
                 currentServer.start();
-                 System.out.println("server kjører");
+                 System.out.println("server kjï¿½rer");
             }
 
         } catch (InvalidPortException ex) {

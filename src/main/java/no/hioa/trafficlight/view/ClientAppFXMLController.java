@@ -1,5 +1,7 @@
 package no.hioa.trafficlight.view;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,6 +20,10 @@ import no.hioa.trafficlight.model.Port;
  * Created by Simen on 28.02.2016.
  */
 public class ClientAppFXMLController implements Initializable {
+
+    private Socket socket;
+
+    private boolean disconnectUsed = false;
 
     private Client client;
     @FXML
@@ -52,7 +58,7 @@ public class ClientAppFXMLController implements Initializable {
     private void onButtonActionClicked(ActionEvent event) {
 
         if (event.getSource().equals(buttonOff)) {
-            client.Disconnect();
+            //disconnect();
         } else if (event.getSource().equals(button_connect)) {
             try {
                 String ports = textfield_port.getText();
@@ -65,13 +71,17 @@ public class ClientAppFXMLController implements Initializable {
             }
            
         } else if (event.getSource().equals(button_disconnect)) {
-            client.Disconnect();
+            disconnect();
         }
     }
 
     public void update(String inputServer) {
         System.out.println("bytte");
         switch (inputServer) {
+            case "OFF":
+                lightRed.setFill(Color.web("#797979"));
+                lightYellow.setFill(Color.web("#797979"));
+                lightGreen.setFill(Color.web("#797979"));
             case "BLINKING_YELLOW":
                 lightRed.setFill(Color.web("#797979"));
                 lightYellow.setFill(Color.web("#797979"));
@@ -103,6 +113,25 @@ public class ClientAppFXMLController implements Initializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public void disconnect() {
+        try {
+            String address = socket.getInetAddress().getHostAddress();
+            socket.close();
+            disconnectUsed = true;
+            textarea.appendText("Disconnected from " + address + "\n");
+        } catch (IOException e) {
+            System.err.println("Something went wrong while disconnecting the client.");
+        }
+    }
+
+    public boolean getDisconnectUsed() {
+        return disconnectUsed;
     }
 
 }

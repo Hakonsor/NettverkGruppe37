@@ -36,11 +36,8 @@ public class ClientApp extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../view/ClientApp.fxml"));
             clientLayout = loader.load();
 
-            
-            Client client = new Client();
-            
-
             ClientAppFXMLController clientAppFXMLController = loader.getController();
+            Client client = new Client(clientAppFXMLController);
             clientAppFXMLController.setClient(client);
             client.setController(clientAppFXMLController);
 
