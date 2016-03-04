@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 
 public class ServerApp extends Application {
 
@@ -33,6 +34,10 @@ public class ServerApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Traffic Light Server");
+        this.primaryStage.setOnCloseRequest(e -> {
+         Platform.exit();
+         System.exit(0);
+        });
 
         serverWindow();
     }
