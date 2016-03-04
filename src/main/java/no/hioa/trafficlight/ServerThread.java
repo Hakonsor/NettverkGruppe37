@@ -17,13 +17,19 @@ import java.util.logging.Logger;
  */
 public class ServerThread extends Thread {
 
+    private Server server; 
     private Socket socket = null;
     private String instruction = "";
     private boolean stateChange = true;
+    public boolean connected = true;
 
     public ServerThread(Socket socket) {
         super("MultiServerThread");
         this.socket = socket;
+    }
+    
+    public void setServer(Server server){
+        this.server = server;
     }
 
     public void run() {
@@ -39,7 +45,21 @@ public class ServerThread extends Thread {
             out.println(outputLine);
             String lastState = outputLine;
 
-            while (true) {
+            
+            System.out.println("noe?");
+            new Thread(){
+            public void run(){
+                try {
+                    if(in.read() == -1){
+                        connected = false;
+                    }
+                } catch (IOException ex) {
+                    System.out.println("stengt");
+                }
+            }}.start();
+            
+            
+            while (connected ) {
                
                 
                 //----------------------
@@ -54,6 +74,9 @@ public class ServerThread extends Thread {
                     out.println(instruction);
                     stateChange = false;
                 }
+
+               
+               
                 if (!Protocol.getState().equals(lastState)) {
                     lastState = Protocol.getState();
                     outputLine = Protocol.getState();
@@ -64,10 +87,13 @@ public class ServerThread extends Thread {
                 }
 
             }
+            server.removeThread(socket);
             socket.close();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
     }
 
     public InetAddress getAdress() {

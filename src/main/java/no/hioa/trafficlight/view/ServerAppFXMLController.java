@@ -138,11 +138,10 @@ public class ServerAppFXMLController {
             if (currentServer != null) {
                 currentServer.interrupt();
                 currentServer.start();
-                System.out.println("server kj�rer");
+
             } else {
                 currentServer = new Thread(server);
                 currentServer.start();
-                System.out.println("server kj�rer");
             }
 
         } catch (InvalidPortException ex) {

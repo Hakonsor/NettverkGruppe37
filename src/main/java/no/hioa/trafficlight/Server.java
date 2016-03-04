@@ -1,4 +1,5 @@
 package no.hioa.trafficlight;
+
 import no.hioa.trafficlight.model.Port;
 
 /**
@@ -19,23 +20,23 @@ import javafx.stage.Stage;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import no.hioa.trafficlight.view.ClientAppFXMLController;
 import no.hioa.trafficlight.view.ServerAppFXMLController;
+
 /**
  *
  * @author hakon
  */
 
-
-
-public class Server implements Runnable{
+public class Server implements Runnable {
 
     private static int portNumber = 1337;
     private List<ServerThread> list = new ArrayList<>();
     private ServerAppFXMLController controller;
-    
-    public void setController(ServerAppFXMLController controller){
+
+    public void setController(ServerAppFXMLController controller) {
         this.controller = controller;
     }
 
@@ -44,34 +45,32 @@ public class Server implements Runnable{
             System.err.println("Usage: java MultiServer <port number>");
             System.exit(1);
         }
-         portNumber = Integer.parseInt(args[0]);
+        portNumber = Integer.parseInt(args[0]);
     }
 
     public Server(int portnumber) {
-         portNumber = portnumber;
+        portNumber = portnumber;
     }
-    
-    public Server(){
-       
+
+    public Server() {
+
     }
 
     public static void setPort(int port) {
         portNumber = port;
     }
-    
-
 
     @Override
     public void run() {
-
 
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
             while (!Thread.interrupted()) {
                 ServerThread thread = new ServerThread(serverSocket.accept());
                 thread.start();
                 list.add(thread);
+                thread.setServer(this);
                 controller.setThreadList(list);
-                
+
             }
         } catch (IOException e) {
             System.err.println("Could not listen on port " + portNumber);
@@ -80,17 +79,32 @@ public class Server implements Runnable{
     }
 
     public void setInstruction(String adress, String intervall) {
-        
-        list.forEach(e ->{
-        if(e.getAdress().getHostAddress().equals(adress)||e.getAdress().getHostName().equals(adress))
-            e.setInstruction(intervall);
+
+        list.forEach(e -> {
+            if (e.getAdress().getHostAddress().equals(adress) || e.getAdress().getHostName().equals(adress)) {
+                e.setInstruction(intervall);
+            }
         });
     }
 
     public void setInstructionAll(String intervall) {
-       list.forEach(e ->{
+        list.forEach(e -> {
             e.setInstruction(intervall);
         });
+    }
+
+    public void removeThread(Socket socket) {
+        Iterator<ServerThread> iter = list.iterator();
+
+        while (iter.hasNext()) {
+            ServerThread str = iter.next();
+
+            if (str.getAdress() == socket.getInetAddress()) {
+                iter.remove();
+            }
+        }
+        controller.setThreadList(list);
+
     }
 
 }
