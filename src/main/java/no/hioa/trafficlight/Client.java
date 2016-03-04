@@ -75,7 +75,7 @@ public class Client implements Runnable {
                 connected = false;
             } catch (UnknownHostException e) {
                 System.err.println("Cant find the server: " + hostName);
-                System.out.println("New attemmpt in 5 secunds");
+                System.out.println("New attempt in 5 seconds");
                 try {
                     Thread.sleep(5000);
                     // System.exit(1);
@@ -86,7 +86,7 @@ public class Client implements Runnable {
             } catch (IOException e) {
                 System.err.println("Input/Output error for the connection to "
                         + hostName);
-                System.out.println("New attemmpt in 5 secunds");
+                System.out.println("New attempt in 5 seconds");
                 try {
                     Thread.sleep(5000);
                     // System.exit(1);
