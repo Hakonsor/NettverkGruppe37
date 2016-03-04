@@ -20,7 +20,7 @@ public class Client implements Runnable {
         controller = controller2;
     }
 
-//Port port, InetAddress inetAddress
+    //Port port, InetAddress inetAddress
     public Client(ClientAppFXMLController cafc) {
         controller = cafc;
         hostName = "localhost";
@@ -31,7 +31,7 @@ public class Client implements Runnable {
         hostName = adress;
         portNumber = port;
     }
-    
+
     public void setStartConnection(int port, String adress){
         hostName = adress;
         portNumber = port;
@@ -47,10 +47,10 @@ public class Client implements Runnable {
         running = true;
         while (running) {
             try {
-                    Socket socket = new Socket(hostName, portNumber);
-                    controller.setSocket(socket);
-                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                Socket socket = new Socket(hostName, portNumber);
+                controller.setSocket(socket);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 //BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
                 String inputServer;
                 String outputClient;
