@@ -78,6 +78,7 @@ public class ClientAppFXMLController implements Initializable {
                 lightYellow.setFill(Color.web("#797979"));
                 lightGreen.setFill(Color.web("#797979"));
                 textarea.appendText("Traffic display off.\n");
+                break;
             case "BLINKING_YELLOW":
                 lightRed.setFill(Color.web("#797979"));
                 lightYellow.setFill(Color.web("#797979"));
