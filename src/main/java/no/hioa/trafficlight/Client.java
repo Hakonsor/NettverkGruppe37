@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import no.hioa.trafficlight.view.ClientAppFXMLController;
 
-
 public class Client implements Runnable {
 
     private static ClientAppFXMLController controller;
@@ -16,6 +15,10 @@ public class Client implements Runnable {
     private String hostName;
     private boolean connected = false;
     private boolean connecting = true;
+    private Thread thread;
+    private static Socket socket;
+    private static BufferedReader in;
+    private static PrintWriter out; 
 
     public void setController(ClientAppFXMLController controller2) {
         controller = controller2;
@@ -32,14 +35,28 @@ public class Client implements Runnable {
         hostName = adress;
         portNumber = port; //Integer.parseInt(args[1]);
     }
-    
-    public void setStartConnection(int port, String adress){
+
+    public void setStartConnection(int port, String adress) {
         hostName = adress;
         portNumber = port;
-        new Thread(this).start();
+        thread = new Thread(this);
+        thread.start();
     }
 
-    public void Disconnect() {
+    public void Disconnect(){
+        controller.appendText("Disconnecting");
+        if (thread != null) {
+            //try {
+                //in.close();
+                //out.close();
+                //socket.close();
+                
+            //} catch (IOException ex) {
+           //     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+           // }
+        }else{
+            controller.appendText("Nothing to disconnect");
+        }
         connecting = false;
         connected = false;
     }
@@ -47,19 +64,27 @@ public class Client implements Runnable {
     @Override
     public void run() {
         connecting = true;
+        controller.appendText("Connecting: " + hostName + ":" + portNumber);
         while (connecting) {
             try (
-                    Socket socket = new Socket(hostName, portNumber);
-                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));) {
+                    Socket newSocket = new Socket(hostName, portNumber);
+                    PrintWriter newOut = new PrintWriter(newSocket.getOutputStream(), true);
+                    BufferedReader newIn = new BufferedReader(new InputStreamReader(newSocket.getInputStream()));) {
                 //BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+                
+                socket = newSocket;
+                in = newIn;
+                out = newOut;
+                
+                controller.appendText("Connected to: " + hostName + ":" + portNumber);
                 connecting = false;
                 connected = true;
                 String inputServer;
                 String outputClient;
 
                 while ((inputServer = in.readLine()) != null) {
-                    System.out.println("Server: " + inputServer);
+                    System.out.println("WHHAT!?");
+                    controller.appendText("Server: " + inputServer);
                     controller.update(inputServer);
                     if (inputServer.equals("Bye.")) {
                         break;
@@ -72,10 +97,11 @@ public class Client implements Runnable {
                 }*/
 
                 }
+                System.out.println("ute av løkken");
                 connected = false;
             } catch (UnknownHostException e) {
-                System.err.println("Cant find the server: " + hostName);
-                System.out.println("New attemmpt in 5 secunds");
+                controller.appendText("Cant find the server: " + hostName);
+                controller.appendText("New attemmpt in 5 secunds");
                 try {
                     Thread.sleep(5000);
                     // System.exit(1);
@@ -84,16 +110,20 @@ public class Client implements Runnable {
                 }
                 //System.exit(1);
             } catch (IOException e) {
-                System.err.println("Input/Output error for the connection to "
+                controller.appendText("Input/Output error for the connection to "
                         + hostName);
-                System.out.println("New attemmpt in 5 secunds");
+                controller.appendText("New attemmpt in 5 secunds");
                 try {
                     Thread.sleep(5000);
                     // System.exit(1);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                   
                 }
+            } catch (Exception e) {
+                System.out.println("meh");
             }
         }
+        controller.appendText("Disconnected");
+       
     }
 }

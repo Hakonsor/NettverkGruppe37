@@ -65,6 +65,7 @@ public class ClientAppFXMLController implements Initializable {
             }
            
         } else if (event.getSource().equals(button_disconnect)) {
+            System.out.println("disconnect");
             client.Disconnect();
         }
     }
@@ -103,6 +104,12 @@ public class ClientAppFXMLController implements Initializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public void appendText(String string) {
+        System.out.println("noe galt?");
+       textarea.appendText(string);
+       textarea.appendText("\n");
     }
 
 }
