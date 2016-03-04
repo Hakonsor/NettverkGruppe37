@@ -118,7 +118,7 @@ public class ClientAppFXMLController implements Initializable {
             textarea.appendText("Connecting to " + socket.getInetAddress().getHostAddress() + ":" + ports + "\n");
         } catch (Exception ex) {
             System.out.println("Ugyldig port eller adresse");
-            textarea.appendText("Could not connect to " socket.getInetAddress().getHostAddress() + ":" + ports + "\n")
+            textarea.appendText("Could not connect to " + socket.getInetAddress().getHostAddress() + ":" + ports + "\n")
         }
     }
 
