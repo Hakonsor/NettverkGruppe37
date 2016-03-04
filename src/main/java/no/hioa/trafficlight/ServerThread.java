@@ -41,12 +41,13 @@ public class ServerThread extends Thread {
                                 socket.getInputStream()));) {
             String inputLine, outputLine;
 
-            outputLine = Protocol.getState();
+            outputLine = ",,,";
             out.println(outputLine);
-            String lastState = outputLine;
+           // String lastState = outputLine;
 
             
-            System.out.println("noe?");
+            //System.out.println("noe?");
+            /*
             new Thread(){
             public void run(){
                 try {
@@ -57,7 +58,7 @@ public class ServerThread extends Thread {
                     System.out.println("stengt");
                 }
             }}.start();
-            
+            */
             
             while (connected ) {
                
@@ -74,9 +75,8 @@ public class ServerThread extends Thread {
                     out.println(instruction);
                     stateChange = false;
                 }
-
                
-               
+               /*
                 if (!Protocol.getState().equals(lastState)) {
                     lastState = Protocol.getState();
                     outputLine = Protocol.getState();
@@ -85,9 +85,10 @@ public class ServerThread extends Thread {
                         break;
                     }
                 }
+                */
 
             }
-            server.removeThread(socket);
+            //server.removeThread(socket);
             socket.close();
             
         } catch (IOException e) {

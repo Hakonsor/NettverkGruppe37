@@ -95,7 +95,8 @@ public class Server implements Runnable {
 
     public void removeThread(Socket socket) {
         Iterator<ServerThread> iter = list.iterator();
-
+        
+/*
         while (iter.hasNext()) {
             ServerThread str = iter.next();
 
@@ -103,6 +104,7 @@ public class Server implements Runnable {
                 iter.remove();
             }
         }
+*/
         controller.setThreadList(list);
 
     }

@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import no.hioa.trafficlight.view.ClientAppFXMLController;
 
-
 public class Client implements Runnable {
 
     private ClientAppFXMLController controller;
@@ -32,7 +31,7 @@ public class Client implements Runnable {
         portNumber = port;
     }
 
-    public void setStartConnection(int port, String adress){
+    public void setStartConnection(int port, String adress) {
         hostName = adress;
         portNumber = port;
         new Thread(this).start();
@@ -41,7 +40,7 @@ public class Client implements Runnable {
     public void terminate(Socket socket) {
         try {
             PrintWriter out = new PrintWriter(socket.getOutputStream());
-            out.write(1);
+            out.write('1');
         } catch (IOException e) {
             System.out.println("Something went wrong in sending termination signal to server.");
         }
@@ -62,10 +61,24 @@ public class Client implements Runnable {
                 String outputClient;
 
                 //
-
                 while ((inputServer = in.readLine()) != null && socket.isConnected()) {
                     System.out.println("Server: " + socket.getInetAddress().getHostAddress());
+
+                    System.out.println(inputServer);
+                    String spilt[] = inputServer.split(",", 4);
                     controller.update(inputServer);
+                    System.out.println(spilt.length);
+
+                    if (spilt.length == 4) {
+
+                        if (spilt[1] != null && !spilt[1].equals("")) {
+                            System.out.println("run");
+                            controller.timerSlider(inputServer);
+                        } else if (spilt[0] != null) {
+                            controller.stopTimerSlider();
+                        }
+                    }
+                    System.out.println(spilt);
                     /*
                 outputClient = stdIn.readLine();
                 if (outputClient != null) {
@@ -114,7 +127,6 @@ public class Client implements Runnable {
                     System.out.println("Client thread terminated at end.");
                 }
             }
-
 
         }
     }

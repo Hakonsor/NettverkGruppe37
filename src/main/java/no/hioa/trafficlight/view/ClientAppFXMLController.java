@@ -29,6 +29,7 @@ public class ClientAppFXMLController implements Initializable {
     private boolean disconnectUsed = false;
 
     private Client client;
+    private boolean intervall = true;
 
     @FXML
     private Button buttonOff;
@@ -54,7 +55,6 @@ public class ClientAppFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
 
     }
 
@@ -71,29 +71,29 @@ public class ClientAppFXMLController implements Initializable {
     }
 
     public void update(String inputServer) {
-        System.out.println(inputServer);
+        intervall = false;
         switch (inputServer) {
-            case "OFF":
+            case "OFF,,,":
                 lightRed.setFill(Color.web("#797979"));
                 lightYellow.setFill(Color.web("#797979"));
                 lightGreen.setFill(Color.web("#797979"));
                 textarea.appendText("Traffic display off.\n");
-            case "BLINKING_YELLOW":
+            case "ERROR,,,":
                 lightRed.setFill(Color.web("#797979"));
                 lightYellow.setFill(Color.web("#797979"));
                 lightGreen.setFill(Color.web("#797979"));
                 break;
-            case "GREEN":
+            case "GREEN,,,":
                 lightRed.setFill(Color.web("#797979"));
                 lightYellow.setFill(Color.web("#797979"));
                 lightGreen.setFill(Color.GREEN);
                 break;
-            case "YELLOW":
+            case "YELLOW,,,":
                 lightRed.setFill(Color.web("#797979"));
                 lightYellow.setFill(Color.YELLOW);
                 lightGreen.setFill(Color.web("#797979"));
                 break;
-            case "RED":
+            case "RED,,,":
                 lightRed.setFill(Color.RED);
                 lightYellow.setFill(Color.web("#797979"));
                 lightGreen.setFill(Color.web("#797979"));
@@ -115,7 +115,9 @@ public class ClientAppFXMLController implements Initializable {
         this.socket = socket;
     }
 
-    public Socket getSocket() {return socket;}
+    public Socket getSocket() {
+        return socket;
+    }
 
     public void connect() {
         String ports = textfield_port.getText();
@@ -137,7 +139,9 @@ public class ClientAppFXMLController implements Initializable {
                 socket.close();
                 disconnectUsed = true;
                 textarea.appendText("Disconnected from " + textfield_adress.getText() + ":" + "\n");
-            } else {textarea.appendText("The client is not connected to a server.\n");}
+            } else {
+                textarea.appendText("The client is not connected to a server.\n");
+            }
 
         } catch (IOException e) {
             System.err.println("Something went wrong while disconnecting the server.");
@@ -149,12 +153,88 @@ public class ClientAppFXMLController implements Initializable {
         return disconnectUsed;
     }
 
-    public static void pause(int seconds){
+    public static void pause(int seconds) {
         Date start = new Date();
         Date end = new Date();
-        while(end.getTime() - start.getTime() < seconds * 1000){
+        while (end.getTime() - start.getTime() < seconds * 1000) {
             end = new Date();
         }
+    }
+
+    public void timerSlider(String inputServer) {
+
+        intervall = true;
+        new Thread() {
+            @Override
+            public void run() {
+
+                long millis = System.currentTimeMillis();
+                //,20,20,20
+                boolean redb = true;
+                boolean yellowb = false;
+                boolean yellowb2 = false;
+                boolean greenb = false;
+                String intevaller[] = inputServer.split(",");
+                int red = Integer.parseInt(intevaller[1]);
+                System.out.println(red);
+                int yellow = Integer.parseInt(intevaller[2]);
+                System.out.println(yellow);
+                int green = Integer.parseInt(intevaller[3]);
+                System.out.println(green);
+
+                while (intervall) {
+
+                    if (redb && red * 100 < System.currentTimeMillis() - millis) {
+                        changeToYellow();
+                        yellowb = true;
+                        redb = false;
+                         millis = System.currentTimeMillis();
+                    } else if (yellowb && yellow * 100 < System.currentTimeMillis() - millis) {
+                        
+                        if (yellowb2) {
+                            changeToRed();
+                            redb = true;
+                            yellowb2 = false;
+                            yellowb = false;
+                            
+                        } else {
+                            changeToGreen();
+                            greenb = true;
+                            yellowb = false;
+                        }
+                        millis = System.currentTimeMillis();
+                    } else if (greenb && green * 100 < System.currentTimeMillis() - millis) {
+                        changeToYellow();
+                        greenb = false;
+                        yellowb = true;
+                        yellowb2 = true;
+                         millis = System.currentTimeMillis();
+                    }
+                }
+            }
+        }.start();
+    }
+
+    private void changeToRed() {
+        lightRed.setFill(Color.RED);
+        lightYellow.setFill(Color.web("#797979"));
+        lightGreen.setFill(Color.web("#797979"));
+    }
+
+    private void changeToYellow() {
+        lightRed.setFill(Color.web("#797979"));
+        lightYellow.setFill(Color.YELLOW);
+        lightGreen.setFill(Color.web("#797979"));
+    }
+
+    private void changeToGreen() {
+        lightRed.setFill(Color.web("#797979"));
+        lightYellow.setFill(Color.web("#797979"));
+        lightGreen.setFill(Color.GREEN);
+    }
+
+    public void stopTimerSlider() {
+          intervall = false;
     }
 
 }
