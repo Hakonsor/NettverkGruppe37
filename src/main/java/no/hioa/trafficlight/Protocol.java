@@ -11,8 +11,10 @@ public interface Protocol {
 
     int getState();
 
+    void updateInstructions();
+
     void setState(String state);
 
-    void setIntervalState(String state, int milliseconds);
+    void setInstructionState(String state, int milliseconds);
 
 }
