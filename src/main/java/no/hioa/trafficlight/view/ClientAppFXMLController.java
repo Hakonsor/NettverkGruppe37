@@ -111,13 +111,14 @@ public class ClientAppFXMLController implements Initializable {
     }
 
     public void connect() {
+        String ports = textfield_port.getText();
         try {
-            String ports = textfield_port.getText();
             Port port = new Port(Integer.parseInt(ports));
             client.setStartConnection(port.getPort(), textfield_adress.getText());
             textarea.appendText("Connecting to " + socket.getInetAddress().getHostAddress() + ":" + ports + "\n");
         } catch (Exception ex) {
             System.out.println("Ugyldig port eller adresse");
+            textarea.appendText("Could not connect to " socket.getInetAddress().getHostAddress() + ":" + ports + "\n")
         }
     }
 
