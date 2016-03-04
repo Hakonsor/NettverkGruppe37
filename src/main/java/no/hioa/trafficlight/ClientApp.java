@@ -15,12 +15,11 @@ import no.hioa.trafficlight.model.Port;
 import no.hioa.trafficlight.view.ClientAppFXMLController;
 
 public class ClientApp extends Application {
-
+    // Most of this stuff is just standard FX startup
     private Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
-        
     }
 
     @Override
@@ -33,7 +32,7 @@ public class ClientApp extends Application {
         });
         serverWindow();
     }
-
+    // The main loading of the controller for and fxml
     public void serverWindow() {
 
         try {
