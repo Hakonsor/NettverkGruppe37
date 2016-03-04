@@ -60,16 +60,7 @@ public class ClientAppFXMLController implements Initializable {
         if (event.getSource().equals(buttonOff)) {
             //disconnect();
         } else if (event.getSource().equals(button_connect)) {
-            try {
-                String ports = textfield_port.getText();
-                Port port = new Port(Integer.parseInt(ports));
-                client.setStartConnection(port.getPort(), textfield_adress.getText());
-            } catch (Exception ex) {
-
-                System.out.println("Uyldig port eller adresse");
-
-            }
-           
+           connect();
         } else if (event.getSource().equals(button_disconnect)) {
             disconnect();
         }
@@ -117,6 +108,16 @@ public class ClientAppFXMLController implements Initializable {
 
     public void setSocket(Socket socket) {
         this.socket = socket;
+    }
+
+    public void connect() {
+        try {
+            String ports = textfield_port.getText();
+            Port port = new Port(Integer.parseInt(ports));
+            client.setStartConnection(port.getPort(), textfield_adress.getText());
+        } catch (Exception ex) {
+            System.out.println("Ugyldig port eller adresse");
+        }
     }
 
     public void disconnect() {
