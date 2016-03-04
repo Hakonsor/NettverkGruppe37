@@ -115,6 +115,7 @@ public class ClientAppFXMLController implements Initializable {
             String ports = textfield_port.getText();
             Port port = new Port(Integer.parseInt(ports));
             client.setStartConnection(port.getPort(), textfield_adress.getText());
+            textarea.appendText("Connecting to " + socket.getInetAddress().getHostAddress() + ":" + ports + "\n");
         } catch (Exception ex) {
             System.out.println("Ugyldig port eller adresse");
         }
