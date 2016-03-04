@@ -9,34 +9,49 @@ import java.util.logging.Logger;
 import no.hioa.trafficlight.view.ClientAppFXMLController;
 
 public class Client implements Runnable {
-
+    
+    // Data fields
     private ClientAppFXMLController controller;
     private int portNumber;
     private String hostName;
-    private volatile boolean running;
+    private volatile boolean running; // Used for client thread termination
 
+    /**
+     * Standard setter that takes a FXMLController as its argument
+     */
     public void setController(ClientAppFXMLController controller2) {
         controller = controller2;
     }
 
-    //Port port, InetAddress inetAddress
+    /**
+     * Constructor takes FXMLController as its argument and initializes standard values for hostName and portNumber
+     */
     public Client(ClientAppFXMLController cafc) {
         controller = cafc;
         hostName = "localhost";
         portNumber = 1337;
     }
 
+    /**
+     * Constructor takes an integer port and String adress as its arguments for initializing values
+     */
     public Client(int port, String adress) {
         hostName = adress;
         portNumber = port;
     }
-
+    
+    /**
+     * Thread-starter for client, takes int port and string adress (this is the one being used)
+     */
     public void setStartConnection(int port, String adress) {
         hostName = adress;
         portNumber = port;
         new Thread(this).start();
     }
-
+    /**
+     * Terminates a thread given its Socket, was supposed to give a termination message to server
+     * but that functionality was never completed
+     */
     public void terminate(Socket socket) {
         try {
             PrintWriter out = new PrintWriter(socket.getOutputStream());
@@ -46,7 +61,9 @@ public class Client implements Runnable {
         }
         running = false;
     }
-
+    /**
+     * Standard run() method for a thread's actions
+     */
     @Override
     public void run() {
         running = true;
@@ -60,7 +77,9 @@ public class Client implements Runnable {
                 String inputServer;
                 String outputClient;
 
-                //
+                /**
+                 * The while loop runs as long as there's input, and the client hasn't chosen to disconnect
+                 */
                 while ((inputServer = in.readLine()) != null && socket.isConnected()) {
                     System.out.println("Server: " + socket.getInetAddress().getHostAddress());
 
@@ -79,13 +98,6 @@ public class Client implements Runnable {
                         }
                     }
                     System.out.println(spilt);
-                    /*
-                outputClient = stdIn.readLine();
-                if (outputClient != null) {
-                    System.out.println("Client: " + outputClient);
-                    out.println(outputClient);
-                }*/
-
                 }
             } catch (UnknownHostException e) {
                 if (controller.getDisconnectUsed()) {
@@ -105,8 +117,6 @@ public class Client implements Runnable {
                     terminate(controller.getSocket());
                     System.out.println("Client thread terminated.");
                 }
-
-                //System.exit(1);
             } catch (IOException e) {
                 if (controller.getDisconnectUsed()) {
                     terminate(controller.getSocket());
@@ -118,7 +128,6 @@ public class Client implements Runnable {
                     while (!controller.getDisconnectUsed()) {
                         try {
                             Thread.sleep(5000);
-                            // System.exit(1);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                         }
