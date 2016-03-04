@@ -3,7 +3,10 @@ package no.hioa.trafficlight.view;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +29,7 @@ public class ClientAppFXMLController implements Initializable {
     private boolean disconnectUsed = false;
 
     private Client client;
+
     @FXML
     private Button buttonOff;
     @FXML
@@ -58,7 +62,7 @@ public class ClientAppFXMLController implements Initializable {
     private void onButtonActionClicked(ActionEvent event) {
 
         if (event.getSource().equals(buttonOff)) {
-            //disconnect();
+            update("OFF");
         } else if (event.getSource().equals(button_connect)) {
             connect();
         } else if (event.getSource().equals(button_disconnect)) {
@@ -67,12 +71,13 @@ public class ClientAppFXMLController implements Initializable {
     }
 
     public void update(String inputServer) {
-        System.out.println("bytte");
+        System.out.println(inputServer);
         switch (inputServer) {
             case "OFF":
                 lightRed.setFill(Color.web("#797979"));
                 lightYellow.setFill(Color.web("#797979"));
                 lightGreen.setFill(Color.web("#797979"));
+                textarea.appendText("Traffic display off.\n");
             case "BLINKING_YELLOW":
                 lightRed.setFill(Color.web("#797979"));
                 lightYellow.setFill(Color.web("#797979"));
@@ -117,7 +122,7 @@ public class ClientAppFXMLController implements Initializable {
             Port port = new Port(Integer.parseInt(ports));
             client.setStartConnection(port.getPort(), textfield_adress.getText());
             address = socket.getInetAddress().getHostAddress();
-            textarea.appendText("Connecting to " + address + ":" + ports + "\n");
+            textarea.appendText("Connected to " + address + ":" + ports + "\n");
         } catch (Exception ex) {
             System.out.println("Ugyldig port eller adresse");
             textarea.appendText("Could not connect to " + textfield_adress.getText() + ":" + ports + "\n");
@@ -126,17 +131,28 @@ public class ClientAppFXMLController implements Initializable {
 
     public void disconnect() {
         try {
-            String address = socket.getInetAddress().getHostAddress();
-            socket.close();
-            disconnectUsed = true;
-            textarea.appendText("Disconnected from " + address + "\n");
+            if (socket != null) {
+                socket.close();
+                disconnectUsed = true;
+                textarea.appendText("Disconnected from " + textfield_adress.getText() + ":" + "\n");
+            } else {textarea.appendText("The client is not connected to a server.\n");}
+
         } catch (IOException e) {
-            System.err.println("Something went wrong while disconnecting the client.");
+            System.err.println("Something went wrong while disconnecting the server.");
+            textarea.appendText("Something went wrong while disconnecting from the server.\n");
         }
     }
 
     public boolean getDisconnectUsed() {
         return disconnectUsed;
+    }
+
+    public static void pause(int seconds){
+        Date start = new Date();
+        Date end = new Date();
+        while(end.getTime() - start.getTime() < seconds * 1000){
+            end = new Date();
+        }
     }
 
 }

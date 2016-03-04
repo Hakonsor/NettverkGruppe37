@@ -69,6 +69,7 @@ public class Client implements Runnable {
             } catch (UnknownHostException e) {
                 if (controller.getDisconnectUsed()) {
                     terminate();
+                    System.out.println("Client thread terminated.");
                 } else {
                     while (!controller.getDisconnectUsed()) {
                         try {
@@ -81,26 +82,29 @@ public class Client implements Runnable {
                         }
                     }
                     terminate();
+                    System.out.println("Client thread terminated.");
                 }
 
                 //System.exit(1);
             } catch (IOException e) {
                 if (controller.getDisconnectUsed()) {
                     terminate();
-                    break;
-                }
-                System.err.println("Input/Output error for the connection to "
-                        + hostName);
-                System.out.println("New attempt in 5 seconds");
-                while (!controller.getDisconnectUsed()) {
-                    try {
-                        Thread.sleep(5000);
-                        // System.exit(1);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Client thread terminated in IOException catch ");
+                } else {
+                    System.err.println("Input/Output error for the connection to "
+                            + hostName);
+                    System.out.println("New attempt in 5 seconds");
+                    while (!controller.getDisconnectUsed()) {
+                        try {
+                            Thread.sleep(5000);
+                            // System.exit(1);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
+                    terminate();
+                    System.out.println("Client thread terminated at end.");
                 }
-                terminate();
             }
 
 
