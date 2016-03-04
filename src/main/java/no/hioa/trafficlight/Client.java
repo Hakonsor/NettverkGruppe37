@@ -38,7 +38,13 @@ public class Client implements Runnable {
         new Thread(this).start();
     }
 
-    public void terminate() {
+    public void terminate(Socket socket) {
+        try {
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
+            out.write(1);
+        } catch (IOException e) {
+            System.out.println("Something went wrong in sending termination signal to server.");
+        }
         running = false;
     }
 
@@ -55,6 +61,8 @@ public class Client implements Runnable {
                 String inputServer;
                 String outputClient;
 
+                //
+
                 while ((inputServer = in.readLine()) != null && socket.isConnected()) {
                     System.out.println("Server: " + socket.getInetAddress().getHostAddress());
                     controller.update(inputServer);
@@ -68,7 +76,7 @@ public class Client implements Runnable {
                 }
             } catch (UnknownHostException e) {
                 if (controller.getDisconnectUsed()) {
-                    terminate();
+                    terminate(controller.getSocket());
                     System.out.println("Client thread terminated.");
                 } else {
                     while (!controller.getDisconnectUsed()) {
@@ -81,14 +89,14 @@ public class Client implements Runnable {
                             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    terminate();
+                    terminate(controller.getSocket());
                     System.out.println("Client thread terminated.");
                 }
 
                 //System.exit(1);
             } catch (IOException e) {
                 if (controller.getDisconnectUsed()) {
-                    terminate();
+                    terminate(controller.getSocket());
                     System.out.println("Client thread terminated in IOException catch ");
                 } else {
                     System.err.println("Input/Output error for the connection to "
@@ -102,7 +110,7 @@ public class Client implements Runnable {
                             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    terminate();
+                    terminate(controller.getSocket());
                     System.out.println("Client thread terminated at end.");
                 }
             }

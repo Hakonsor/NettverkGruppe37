@@ -115,6 +115,8 @@ public class ClientAppFXMLController implements Initializable {
         this.socket = socket;
     }
 
+    public Socket getSocket() {return socket;}
+
     public void connect() {
         String ports = textfield_port.getText();
         String address;
