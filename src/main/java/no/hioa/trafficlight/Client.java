@@ -112,7 +112,9 @@ public class Client implements Runnable {
             } catch (IOException e) {
                 controller.appendText("Input/Output error for the connection to "
                         + hostName);
+
                 controller.appendText("New attemmpt in 5 secunds");
+
                 try {
                     Thread.sleep(5000);
                     // System.exit(1);
