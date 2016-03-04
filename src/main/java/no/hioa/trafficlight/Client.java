@@ -38,14 +38,6 @@ public class Client implements Runnable {
         new Thread(this).start();
     }
 
-    public void Disconnect(Socket socket) {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            System.err.println("Error when attempting to close socket connection.");
-        }
-    }
-
     public void terminate() {
         running = false;
     }
