@@ -80,8 +80,15 @@ public class Server implements Runnable{
     }
 
     public void setInstruction(String adress, String intervall) {
+        
         list.forEach(e ->{
         if(e.getAdress().getHostAddress().equals(adress)||e.getAdress().getHostName().equals(adress))
+            e.setInstruction(intervall);
+        });
+    }
+
+    public void setInstructionAll(String intervall) {
+       list.forEach(e ->{
             e.setInstruction(intervall);
         });
     }

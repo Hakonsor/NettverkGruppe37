@@ -52,6 +52,7 @@ public class ServerThread extends Thread {
 
                 if(stateChange){
                     out.println(instruction);
+                    stateChange = false;
                 }
                 if (!Protocol.getState().equals(lastState)) {
                     lastState = Protocol.getState();
@@ -75,6 +76,7 @@ public class ServerThread extends Thread {
 
     public void setInstruction(String instruction) {
         this.instruction = instruction;
+        stateChange = true;
     }
 
     public static class Protocol {
