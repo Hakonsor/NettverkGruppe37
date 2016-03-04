@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 public class ServerThread extends Thread {
 
     private Socket socket = null;
+    private String instruction = "";
+    private boolean stateChange = true;
 
     public ServerThread(Socket socket) {
         super("MultiServerThread");
@@ -38,6 +40,8 @@ public class ServerThread extends Thread {
             String lastState = outputLine;
 
             while (true) {
+               
+                
                 //----------------------
                 try {
                     Thread.sleep(1);
@@ -45,10 +49,11 @@ public class ServerThread extends Thread {
                     Logger.getLogger(ServerThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 //----------------------Det må være et delay her, kan erstattes med System.print.out eller noe annet svada
-                System.out.println(Protocol.getState());
-                System.out.println(lastState);
+
+                if(stateChange){
+                    out.println(instruction);
+                }
                 if (!Protocol.getState().equals(lastState)) {
-                    System.out.println("Noob!");
                     lastState = Protocol.getState();
                     outputLine = Protocol.getState();
                     out.println(outputLine);
@@ -64,12 +69,21 @@ public class ServerThread extends Thread {
         }
     }
 
+    public InetAddress getAdress() {
+        return socket.getInetAddress();
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
+
     public static class Protocol {
 
         private static final int BLINKING_YELLOW = 0;
         private static final int GREEN = 1;
         private static final int YELLOW = 2;
         private static final int RED = 3;
+        
 
         private static int state = BLINKING_YELLOW;
 

@@ -48,6 +48,7 @@ public class ServerApp extends Application {
 
             ServerAppFXMLController serverAppFXMLController = loader.getController();
             serverAppFXMLController.setServer(server);
+            server.setController(serverAppFXMLController);
             
             
             

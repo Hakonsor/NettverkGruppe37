@@ -1,11 +1,16 @@
 package no.hioa.trafficlight.view;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import no.hioa.trafficlight.Server;
 import no.hioa.trafficlight.ServerApp;
+import no.hioa.trafficlight.ServerThread;
 import no.hioa.trafficlight.model.InvalidPortException;
 import no.hioa.trafficlight.model.Port;
 
@@ -58,6 +63,11 @@ public class ServerAppFXMLController {
     }
 
     public void instructionSendAction(ActionEvent actionEvent) {
+        String intervall = instructionRed.getText()+",";
+        intervall += instructionYellow.getText()+",";
+        intervall += instructionGreen.getText();
+        server.setInstruction(intervall, "localhost");
+        
     }
 
     public void serverSettingsPortFieldAction(ActionEvent actionEvent) {
@@ -98,5 +108,16 @@ public class ServerAppFXMLController {
 
     public void setServer(Server server) {
         this.server = server;
+    }
+
+    public void setThreadList(List<ServerThread> list) {
+        ObservableSet<String> setInetAddresses = FXCollections.observableSet(); //
+        ObservableList<String> listInetAddresses = FXCollections.observableArrayList();
+        list.forEach(e -> {
+        setInetAddresses.add(e.getAdress().getHostAddress());
+        });
+        listInetAddresses.setAll(setInetAddresses);
+        clientList.setItems(listInetAddresses);
+       
     }
 }
