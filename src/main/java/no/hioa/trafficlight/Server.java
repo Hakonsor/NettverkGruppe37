@@ -10,12 +10,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import javafx.application.Application;
-import static javafx.application.Application.launch;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import java.net.*;
 import java.io.*;
 /**
@@ -43,7 +37,7 @@ public class Server implements Runnable{
     }
     
     public Server(){
-       
+       run();
     }
 
     public static void setPort(int port) {
@@ -57,6 +51,7 @@ public class Server implements Runnable{
 
 
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) {
+            System.out.println("kake");
             while (!Thread.interrupted()) {
                 new ServerThread(serverSocket.accept()).start();
             }
