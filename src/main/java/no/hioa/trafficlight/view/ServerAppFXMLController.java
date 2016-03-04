@@ -36,6 +36,14 @@ public class ServerAppFXMLController {
     public TextArea serverInfoField;
     public ListView<String> clientList;
     public Button serverSettingsStartButton;
+    @FXML
+    private Slider slider_red;
+    @FXML
+    private Slider slider_yellow;
+    @FXML
+    private Slider slider_green;
+    @FXML
+    private Button button_slider;
 
     @FXML
     public void manualOffAction(ActionEvent actionEvent) {
@@ -184,5 +192,19 @@ public class ServerAppFXMLController {
 
     @FXML
     private void instructionGreenAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void onSliderButton(ActionEvent event) {
+        String intervall = ","+(int)slider_red.getValue() + ",";
+        intervall += (int)slider_yellow.getValue() + ",";
+        intervall += (int)slider_green.getValue();
+        if (getSelectedAdress() == null) {
+            server.setInstructionAll(intervall);
+            serverInfoField.appendText("Instruction send to all traffic lights.\n");
+        } else {
+            server.setInstruction(getSelectedAdress(), intervall);
+            serverInfoField.appendText(getSelectedAdress()+" Instruction send to all traffic light.\n");
+        }
     }
 }

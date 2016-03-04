@@ -45,14 +45,15 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Slider layoutX="56.0" layoutY="15.0" />
-                              <Slider layoutX="56.0" layoutY="47.0" />
-                              <Slider layoutX="56.0" layoutY="86.0" />
+                              <Slider fx:id="slider_red" layoutX="56.0" layoutY="15.0" min="1.0" />
+                              <Slider fx:id="slider_yellow" layoutX="56.0" layoutY="47.0" min="1.0" />
+                              <Slider fx:id="slider_green" layoutX="56.0" layoutY="86.0" min="1.0" />
                               <Label layoutX="4.0" layoutY="13.0" text="Red" />
                               <Label layoutX="4.0" layoutY="45.0" text="Yellow" />
                               <Label layoutX="4.0" layoutY="84.0" text="Green" />
                               <Label layoutX="42.0" layoutY="119.0" text="Min" />
                               <Label layoutX="182.0" layoutY="119.0" text="Max" />
+                              <Button fx:id="button_slider" layoutX="100.0" layoutY="124.0" mnemonicParsing="false" onAction="#onSliderButton" text="Send" />
                            </children>
                         </AnchorPane>
                   </content>
