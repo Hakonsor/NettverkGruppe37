@@ -131,7 +131,8 @@ public class ClientAppFXMLController implements Initializable {
             disconnectUsed = true;
             textarea.appendText("Disconnected from " + address + "\n");
         } catch (IOException e) {
-            System.err.println("Something went wrong while disconnecting the client.");
+            System.err.println("Something went wrong while disconnecting the server.");
+            textarea.appendText("Something went wrong while disconnecting from the server.");
         }
     }
 
